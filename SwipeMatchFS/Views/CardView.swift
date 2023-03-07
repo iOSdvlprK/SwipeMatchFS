@@ -19,14 +19,21 @@ class CardView: UIView {
     
     // encapsulation
     fileprivate let imageView = UIImageView(image: UIImage(named: "lady5c"))
+    fileprivate let gradientLayer = CAGradientLayer()
     fileprivate let informationLabel = UILabel()
-    fileprivate let backdropView = UIView(frame: .zero)
     
     // Configurations
     fileprivate let threshold: CGFloat = 80
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupLayout()
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        addGestureRecognizer(panGesture)
+    }
+    
+    fileprivate func setupLayout() {
         // custom drawing code
         layer.cornerRadius = 10
         clipsToBounds = true
@@ -35,16 +42,27 @@ class CardView: UIView {
         addSubview(imageView)
         imageView.fillSuperview()
         
+        // add a gradient layer
+        setupGradientLayer()
+        
         addSubview(informationLabel)
         informationLabel.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16))
         
-        informationLabel.text = "User name, Age and Profession"
         informationLabel.textColor = .white
-        informationLabel.font = UIFont.systemFont(ofSize: 34, weight: .heavy)
         informationLabel.numberOfLines = 0
-        
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        addGestureRecognizer(panGesture)
+    }
+    
+    fileprivate func setupGradientLayer() {
+        // draw a gradient
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
+        gradientLayer.locations = [0.5, 1.1]
+        // here self.frame is actually zero frame
+        layer.addSublayer(gradientLayer)
+    }
+    
+    override func layoutSubviews() {
+        // in here we know what CardView frame will be
+        gradientLayer.frame = bounds
     }
     
     @objc fileprivate func handlePan(gesture: UIPanGestureRecognizer) {
