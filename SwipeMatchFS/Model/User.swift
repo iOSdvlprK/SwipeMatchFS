@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct User {
+struct User: ProducesCardViewModel {
     // defining properties for model layer
     let name: String
     let age: Int
