@@ -15,6 +15,7 @@ class CustomTextField: UITextField {
         self.padding = padding
         super.init(frame: .zero)
         layer.cornerRadius = 22
+        backgroundColor = .systemBackground
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
