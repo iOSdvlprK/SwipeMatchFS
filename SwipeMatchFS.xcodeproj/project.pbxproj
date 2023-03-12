@@ -22,6 +22,7 @@
 		D879695429B6193E0061ED87 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D879695329B6193E0061ED87 /* Advertiser.swift */; };
 		D879695629BA5E950061ED87 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D879695529BA5E950061ED87 /* RegistrationController.swift */; };
 		D879695829BA69FD0061ED87 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D879695729BA69FC0061ED87 /* CustomTextField.swift */; };
+		D8B1566729BDC7BD00D2CE1C /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B1566629BDC7BD00D2CE1C /* Bindable.swift */; };
 		D8C57E5D29BCB89A00A7E328 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C57E5C29BCB89A00A7E328 /* RegistrationViewModel.swift */; };
 		D8C57E6029BCD76A00A7E328 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D8C57E5F29BCD76A00A7E328 /* FirebaseAuth */; };
 		D8C57E6229BCD76A00A7E328 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D8C57E6129BCD76A00A7E328 /* FirebaseFirestore */; };
@@ -49,6 +50,7 @@
 		D879695329B6193E0061ED87 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
 		D879695529BA5E950061ED87 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		D879695729BA69FC0061ED87 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		D8B1566629BDC7BD00D2CE1C /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		D8C57E5C29BCB89A00A7E328 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		D8C57E6B29BCDDBB00A7E328 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +139,7 @@
 			children = (
 				D879693229AFB93C0061ED87 /* HomeController.swift */,
 				D879695529BA5E950061ED87 /* RegistrationController.swift */,
+				D8B1566629BDC7BD00D2CE1C /* Bindable.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				D879694E29B4C85E0061ED87 /* User.swift in Sources */,
 				D879695629BA5E950061ED87 /* RegistrationController.swift in Sources */,
 				D879694929B21B3F0061ED87 /* TopNavigationStackView.swift in Sources */,
+				D8B1566729BDC7BD00D2CE1C /* Bindable.swift in Sources */,
 				D879695829BA69FD0061ED87 /* CustomTextField.swift in Sources */,
 				D8C57E5D29BCB89A00A7E328 /* RegistrationViewModel.swift in Sources */,
 				D879694429AFBDD10061ED87 /* Extensions+UIView.swift in Sources */,
