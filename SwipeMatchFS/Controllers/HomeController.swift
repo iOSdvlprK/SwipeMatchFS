@@ -24,7 +24,7 @@ class HomeController: UIViewController {
         bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         
         setupLayout()
-        setupFirestoreUserCards()
+//        setupFirestoreUserCards()
         fetchUsersFromFirestore()
     }
     
@@ -68,9 +68,10 @@ class HomeController: UIViewController {
     
     @objc fileprivate func handleSettings() {
         print("Show registration page")
-        let registrationController = RegistrationController()
-        registrationController.modalPresentationStyle = .fullScreen
-        present(registrationController, animated: true)
+        let settingsController = SettingsController()
+        let navController = UINavigationController(rootViewController: settingsController)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true)
     }
     
     fileprivate func setupFirestoreUserCards() {
