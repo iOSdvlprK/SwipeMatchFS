@@ -31,6 +31,7 @@
 		D8C57E6A29BCD90000A7E328 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D8C57E6929BCD90000A7E328 /* JGProgressHUD */; };
 		D8C57E6C29BCDDBB00A7E328 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C57E6B29BCDDBB00A7E328 /* GoogleService-Info.plist */; };
 		D8C8098C29C49E0F0097B52D /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098B29C49E0F0097B52D /* SettingsController.swift */; };
+		D8C8098E29C4EE580097B52D /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098D29C4EE580097B52D /* SettingsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		D8C57E5C29BCB89A00A7E328 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		D8C57E6B29BCDDBB00A7E328 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D8C8098B29C49E0F0097B52D /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		D8C8098D29C4EE580097B52D /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				D879694829B21B3F0061ED87 /* TopNavigationStackView.swift */,
 				D879694A29B262E90061ED87 /* CardView.swift */,
 				D879695729BA69FC0061ED87 /* CustomTextField.swift */,
+				D8C8098D29C4EE580097B52D /* SettingsCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				D8C57E5D29BCB89A00A7E328 /* RegistrationViewModel.swift in Sources */,
 				D879694429AFBDD10061ED87 /* Extensions+UIView.swift in Sources */,
 				D879693129AFB93C0061ED87 /* SceneDelegate.swift in Sources */,
+				D8C8098E29C4EE580097B52D /* SettingsCell.swift in Sources */,
 				D879695229B518A60061ED87 /* CardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
