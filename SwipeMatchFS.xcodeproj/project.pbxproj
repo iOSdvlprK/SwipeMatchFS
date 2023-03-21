@@ -32,6 +32,7 @@
 		D8C57E6C29BCDDBB00A7E328 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8C57E6B29BCDDBB00A7E328 /* GoogleService-Info.plist */; };
 		D8C8098C29C49E0F0097B52D /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098B29C49E0F0097B52D /* SettingsController.swift */; };
 		D8C8098E29C4EE580097B52D /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098D29C4EE580097B52D /* SettingsCell.swift */; };
+		D8C8099029C9DB8C0097B52D /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098F29C9DB8C0097B52D /* AgeRangeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		D8C57E6B29BCDDBB00A7E328 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D8C8098B29C49E0F0097B52D /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		D8C8098D29C4EE580097B52D /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		D8C8098F29C9DB8C0097B52D /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				D879694A29B262E90061ED87 /* CardView.swift */,
 				D879695729BA69FC0061ED87 /* CustomTextField.swift */,
 				D8C8098D29C4EE580097B52D /* SettingsCell.swift */,
+				D8C8098F29C9DB8C0097B52D /* AgeRangeCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				D879693329AFB93C0061ED87 /* HomeController.swift in Sources */,
 				D879692F29AFB93C0061ED87 /* AppDelegate.swift in Sources */,
 				D879694729B1FF240061ED87 /* HomeBottomControlsStackView.swift in Sources */,
+				D8C8099029C9DB8C0097B52D /* AgeRangeCell.swift in Sources */,
 				D879694E29B4C85E0061ED87 /* User.swift in Sources */,
 				D8C8098C29C49E0F0097B52D /* SettingsController.swift in Sources */,
 				D879695629BA5E950061ED87 /* RegistrationController.swift in Sources */,
