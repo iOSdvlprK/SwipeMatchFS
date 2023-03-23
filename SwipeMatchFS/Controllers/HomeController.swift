@@ -33,16 +33,24 @@ class HomeController: UIViewController, SettingsControllerDelegate {
     fileprivate var user: User?
     
     fileprivate func fetchCurrentUser() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, err in
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+//        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, err in
+//            if let err = err {
+//                print(err)
+//                return
+//            }
+//
+//            // fetched user here
+//            guard let dictionary = snapshot?.data() else { return }
+//            self.user = User(dictionary: dictionary)
+//            self.fetchUsersFromFirestore()
+//        }
+        FBExtension.fetchCurrentUser { user, err in
             if let err = err {
-                print(err)
+                print("Failed to fetch user:", err)
                 return
             }
-            
-            // fetched user here
-            guard let dictionary = snapshot?.data() else { return }
-            self.user = User(dictionary: dictionary)
+            self.user = user
             self.fetchUsersFromFirestore()
         }
     }

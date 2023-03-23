@@ -33,6 +33,7 @@
 		D8C8098C29C49E0F0097B52D /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098B29C49E0F0097B52D /* SettingsController.swift */; };
 		D8C8098E29C4EE580097B52D /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098D29C4EE580097B52D /* SettingsCell.swift */; };
 		D8C8099029C9DB8C0097B52D /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098F29C9DB8C0097B52D /* AgeRangeCell.swift */; };
+		D8E8EC2329CC9B0A00A8F2ED /* FBExtension+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E8EC2229CC9B0A00A8F2ED /* FBExtension+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		D8C8098B29C49E0F0097B52D /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		D8C8098D29C4EE580097B52D /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		D8C8098F29C9DB8C0097B52D /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
+		D8E8EC2229CC9B0A00A8F2ED /* FBExtension+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FBExtension+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				D879694329AFBDD10061ED87 /* Extensions+UIView.swift */,
+				D8E8EC2229CC9B0A00A8F2ED /* FBExtension+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8E8EC2329CC9B0A00A8F2ED /* FBExtension+Utils.swift in Sources */,
 				D879695429B6193E0061ED87 /* Advertiser.swift in Sources */,
 				D879694B29B262E90061ED87 /* CardView.swift in Sources */,
 				D879693329AFB93C0061ED87 /* HomeController.swift in Sources */,
