@@ -44,14 +44,14 @@ class RegistrationController: UIViewController {
     }
     
     let fullNameTextField: CustomTextField = {
-        let tf = CustomTextField(padding: 16)
+        let tf = CustomTextField(padding: 16, height: 44)
         tf.placeholder = "Enter full name"
         tf.addTarget(nil, action: #selector(handleTextChange), for: .editingChanged)
         return tf
     }()
     
     let emailTextField: CustomTextField = {
-        let tf = CustomTextField(padding: 16)
+        let tf = CustomTextField(padding: 16, height: 44)
         tf.placeholder = "Enter email"
         tf.keyboardType = .emailAddress
         tf.addTarget(nil, action: #selector(handleTextChange), for: .editingChanged)
@@ -59,7 +59,7 @@ class RegistrationController: UIViewController {
     }()
     
     let passwordTextField: CustomTextField = {
-        let tf = CustomTextField(padding: 16)
+        let tf = CustomTextField(padding: 16, height: 44)
         tf.placeholder = "Enter password"
         tf.isSecureTextEntry = true
         tf.addTarget(nil, action: #selector(handleTextChange), for: .editingChanged)
@@ -213,13 +213,32 @@ class RegistrationController: UIViewController {
         }
     }
     
+    let goToLoginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Go to Login", for: .normal)
+        button.setTitleColor(.systemBackground, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        button.addTarget(nil, action: #selector(handleGoToLogin), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc fileprivate func handleGoToLogin() {
+        let loginController = LoginController()
+        navigationController?.pushViewController(loginController, animated: true)
+    }
+    
     fileprivate func setupLayout() {
+        navigationController?.isNavigationBarHidden = true
+        
         view.addSubview(overallStackView)
         overallStackView.axis = .vertical
         selectPhotoButton.widthAnchor.constraint(equalToConstant: 275).isActive = true
         overallStackView.spacing = 8
         overallStackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 50))
         overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        view.addSubview(goToLoginButton)
+        goToLoginButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
     }
     
     let gradientLayer = CAGradientLayer()

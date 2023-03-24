@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseAuth
 import JGProgressHUD
 
-class HomeController: UIViewController, SettingsControllerDelegate {
+class HomeController: UIViewController, SettingsControllerDelegate, LoginControllerDelegate {
     
     let topStackView = TopNavigationStackView()
     let cardsDeckView = UIView()
@@ -21,6 +21,8 @@ class HomeController: UIViewController, SettingsControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        try? Auth.auth().signOut()
+        
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
         bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         
@@ -30,24 +32,34 @@ class HomeController: UIViewController, SettingsControllerDelegate {
         fetchCurrentUser()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("HomeController did appear")
+        // kick the user out when they log out
+        if Auth.auth().currentUser == nil {
+            let loginController = LoginController()
+            loginController.delegate = self
+            let navController = UINavigationController(rootViewController: loginController)
+            navController.modalPresentationStyle = .fullScreen
+            present(navController, animated: true)
+        }
+    }
+    
+    func didFinishLoggingIn() {
+        fetchCurrentUser()
+    }
+    
     fileprivate var user: User?
+    fileprivate let hud = JGProgressHUD(style: .dark)
     
     fileprivate func fetchCurrentUser() {
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, err in
-//            if let err = err {
-//                print(err)
-//                return
-//            }
-//
-//            // fetched user here
-//            guard let dictionary = snapshot?.data() else { return }
-//            self.user = User(dictionary: dictionary)
-//            self.fetchUsersFromFirestore()
-//        }
+        hud.textLabel.text = "Loading"
+        hud.show(in: view)
+        cardsDeckView.subviews.forEach({ $0.removeFromSuperview() })
         FBExtension.fetchCurrentUser { user, err in
             if let err = err {
                 print("Failed to fetch user:", err)
+                self.hud.dismiss()
                 return
             }
             self.user = user
@@ -64,14 +76,14 @@ class HomeController: UIViewController, SettingsControllerDelegate {
     fileprivate func fetchUsersFromFirestore() {
         guard let minAge = user?.minSeekingAge, let maxAge = user?.maxSeekingAge else { return }
         
-        let hud = JGProgressHUD(style: .dark)
-        hud.textLabel.text = "Fetching Users"
-        hud.show(in: view)
+//        let hud = JGProgressHUD(style: .dark)
+//        hud.textLabel.text = "Fetching Users"
+//        hud.show(in: view)
         // will introduce pagination here to page through 2 users at a time
 //        let query = Firestore.firestore().collection("users").order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2)
         let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
         query.getDocuments { snapshot, err in
-            hud.dismiss()
+            self.hud.dismiss()
             if let err = err {
                 print("Failed to fetch users:", err)
                 return

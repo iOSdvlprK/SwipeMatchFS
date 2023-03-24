@@ -109,21 +109,6 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
     var user: User?
     
     fileprivate func fetchCurrentUser() {
-//        // fetch some Firestore Data
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, err in
-//            if let err = err {
-//                print(err)
-//                return
-//            }
-//
-//            // fetched user here
-//            guard let dictionary = snapshot?.data() else { return }
-//            self.user = User(dictionary: dictionary)
-//            self.loadUserPhotos()
-//
-//            self.tableView.reloadData()
-//        }
         FBExtension.fetchCurrentUser { user, err in
             if let err = err {
                 print("Failed to fetch user:", err)
@@ -213,20 +198,10 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
     }
     
     @objc fileprivate func handleMinAgeChange(slider: UISlider) {
-//        print(slider.value)
-        // update the minLabel in AgeRangeCell
-//        let indexPath = IndexPath(row: 0, section: 5)
-//        let ageRangeCell = tableView.cellForRow(at: indexPath) as! AgeRangeCell
-//        ageRangeCell.minLabel.text = "Min \(Int(slider.value))"
-//        self.user?.minSeekingAge = Int(slider.value)
         evaluateMinMax()
     }
     
     @objc fileprivate func handleMaxAgeChange(slider: UISlider) {
-//        let indexPath = IndexPath(row: 0, section: 5)
-//        let ageRangeCell = tableView.cellForRow(at: indexPath) as! AgeRangeCell
-//        ageRangeCell.maxLabel.text = "Max \(Int(slider.value))"
-//        self.user?.maxSeekingAge = Int(slider.value)
         evaluateMinMax()
     }
     
@@ -300,8 +275,13 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave)),
-            UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleCancel))
+            UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         ]
+    }
+    
+    @objc fileprivate func handleLogout() {
+        try? Auth.auth().signOut()
+        dismiss(animated: true)
     }
     
     @objc fileprivate func handleSave() {
