@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseAuth
 import JGProgressHUD
 
-class HomeController: UIViewController, SettingsControllerDelegate, LoginControllerDelegate {
+class HomeController: UIViewController, SettingsControllerDelegate, LoginControllerDelegate, CardViewDelegate {
     
     let topStackView = TopNavigationStackView()
     let cardsDeckView = UIView()
@@ -20,8 +20,6 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        try? Auth.auth().signOut()
         
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
         bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
@@ -76,9 +74,6 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     fileprivate func fetchUsersFromFirestore() {
         guard let minAge = user?.minSeekingAge, let maxAge = user?.maxSeekingAge else { return }
         
-//        let hud = JGProgressHUD(style: .dark)
-//        hud.textLabel.text = "Fetching Users"
-//        hud.show(in: view)
         // will introduce pagination here to page through 2 users at a time
 //        let query = Firestore.firestore().collection("users").order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2)
         let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
@@ -92,20 +87,29 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
             snapshot?.documents.forEach({ documentSnapshot in
                 let userDictionary = documentSnapshot.data()
                 let user = User(dictionary: userDictionary)
-                self.cardViewModels.append(user.toCardViewModel())
-                self.lastFetchedUser = user
-                self.setupCardFromUser(user: user)
+                if user.uid != Auth.auth().currentUser?.uid {
+                    self.setupCardFromUser(user: user)
+                }
+//                self.cardViewModels.append(user.toCardViewModel())
+//                self.lastFetchedUser = user
             })
-//            self.setupFirestoreUserCards()
         }
     }
     
     fileprivate func setupCardFromUser(user: User) {
         let cardView = CardView(frame: .zero)
+        cardView.delegate = self
         cardView.cardViewModel = user.toCardViewModel()
         cardsDeckView.addSubview(cardView)
         cardsDeckView.sendSubviewToBack(cardView)
         cardView.fillSuperview()
+    }
+    
+    func didTapMoreInfo() {
+        print("Home controller going to show user details now")
+        let userDetailsController = UserDetailsController()
+        userDetailsController.modalPresentationStyle = .fullScreen
+        present(userDetailsController, animated: true)
     }
     
     @objc fileprivate func handleSettings() {
