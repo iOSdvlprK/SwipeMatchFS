@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 protocol CardViewDelegate {
-    func didTapMoreInfo()
+    func didTapMoreInfo(cardViewModel: CardViewModel)
 }
 
 class CardView: UIView {
@@ -18,7 +18,7 @@ class CardView: UIView {
     
     var cardViewModel: CardViewModel! {
         didSet {
-            let imageName = cardViewModel.imageNames.first ?? ""
+            let imageName = cardViewModel.imageUrls.first ?? ""
             if let url = URL(string: imageName) {
                 imageView.sd_setImage(with: url)
             }
@@ -26,7 +26,7 @@ class CardView: UIView {
             informationLabel.attributedText = cardViewModel.attributedString
             informationLabel.textAlignment = cardViewModel.textAlignment
             
-            (0..<cardViewModel.imageNames.count).forEach { _ in
+            (0..<cardViewModel.imageUrls.count).forEach { _ in
                 let barView = UIView()
                 barView.backgroundColor = barDeselectedColor
                 barsStackView.addArrangedSubview(barView)
@@ -89,17 +89,7 @@ class CardView: UIView {
     }()
     
     @objc fileprivate func handleMoreInfo() {
-        // present() is missing here
-        /* // hack solution
-        let window = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window
-        let rootViewController = window?.rootViewController
-        let userDetailsController = UIViewController()
-        userDetailsController.view.backgroundColor = .systemYellow
-        userDetailsController.modalPresentationStyle = .fullScreen
-        rootViewController?.present(userDetailsController, animated: true) */
-        
-        // use a delegate instead: much more elegant
-        delegate?.didTapMoreInfo()
+        delegate?.didTapMoreInfo(cardViewModel: self.cardViewModel)
     }
     
     fileprivate func setupLayout() {

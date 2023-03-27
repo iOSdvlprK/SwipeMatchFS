@@ -96,7 +96,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         super.viewDidLoad()
 
         setupNavigationItems()
-        tableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        tableView.backgroundColor = .systemGray5
         tableView.keyboardDismissMode = .interactive
         
         if #available(iOS 15.0, *) {
@@ -140,6 +140,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
     
     lazy var header: UIView = {
         let header = UIView()
+        header.backgroundColor = .systemGray5
         header.addSubview(image1Button)
         let padding: CGFloat = 16
         image1Button.anchor(top: header.topAnchor, leading: header.leadingAnchor, bottom: header.bottomAnchor, trailing: nil, padding: UIEdgeInsets(top: padding, left: padding, bottom: padding, right: 0))
@@ -166,6 +167,8 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             return header
         }
         let headerLabel = HeaderLabel()
+        headerLabel.textColor = .label
+        headerLabel.backgroundColor = .systemGray5
         switch section {
         case 1:
             headerLabel.text = "Name"

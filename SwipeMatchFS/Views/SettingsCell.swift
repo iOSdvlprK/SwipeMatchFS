@@ -28,6 +28,7 @@ class SettingsCell: UITableViewCell {
         let tf = SettingsTextField()
         tf.placeholder = "Enter Name"
         tf.backgroundColor = .systemBackground
+        tf.textColor = .label
         return tf
     }()
 
