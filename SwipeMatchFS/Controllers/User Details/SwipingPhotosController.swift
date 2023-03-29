@@ -9,20 +9,34 @@ import UIKit
 
 class SwipingPhotosController: UIPageViewController, UIPageViewControllerDataSource {
     
-    let controllers = [
-        PhotoController(image: UIImage(named: "boost_circle")!),
-        PhotoController(image: UIImage(named: "refresh_circle")!),
-        PhotoController(image: UIImage(named: "like_circle")!),
-        PhotoController(image: UIImage(named: "super_like_circle")!),
-        PhotoController(image: UIImage(named: "dismiss_circle")!)
-    ]
+    var cardViewModel: CardViewModel! {
+        didSet {
+            print(cardViewModel.attributedString)
+            controllers = cardViewModel.imageUrls.map { imageUrl -> UIViewController in
+                let photoController = PhotoController(imageUrl: imageUrl)
+                return photoController
+            }
+            
+            setViewControllers([controllers.first!], direction: .forward, animated: true)
+        }
+    }
+    
+//    let controllers = [
+//        PhotoController(image: UIImage(named: "boost_circle")!),
+//        PhotoController(image: UIImage(named: "refresh_circle")!),
+//        PhotoController(image: UIImage(named: "like_circle")!),
+//        PhotoController(image: UIImage(named: "super_like_circle")!),
+//        PhotoController(image: UIImage(named: "dismiss_circle")!)
+//    ]
+    
+    var controllers = [UIViewController]()  // blank array
 
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
         view.backgroundColor = .systemBackground
         
-        setViewControllers([controllers.first!], direction: .forward, animated: true)
+//        setViewControllers([controllers.first!], direction: .forward, animated: true)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -41,8 +55,11 @@ class SwipingPhotosController: UIPageViewController, UIPageViewControllerDataSou
 class PhotoController: UIViewController {
     let imageView = UIImageView(image: UIImage(named: "kelly1")!)
     
-    init(image: UIImage) {
-        imageView.image = image
+    // provide an initializer that takes in a ULR instead
+    init(imageUrl: String) {
+        if let url = URL(string: imageUrl) {
+            imageView.sd_setImage(with: url)
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,7 +67,7 @@ class PhotoController: UIViewController {
         super.viewDidLoad()
         view.addSubview(imageView)
         imageView.fillSuperview()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
     }
     
     required init?(coder: NSCoder) {
