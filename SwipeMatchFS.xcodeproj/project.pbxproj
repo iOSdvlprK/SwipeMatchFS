@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D813020929D7111F002174D1 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D813020829D7111F002174D1 /* PhotoController.swift */; };
 		D8650B7729DDAF7E00CE6EB2 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8650B7629DDAF7E00CE6EB2 /* MatchView.swift */; };
+		D8650B7929DF00A000CE6EB2 /* SendMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8650B7829DF00A000CE6EB2 /* SendMessageButton.swift */; };
+		D8650B7B29DF06D100CE6EB2 /* KeepSwipingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8650B7A29DF06D100CE6EB2 /* KeepSwipingButton.swift */; };
 		D879692F29AFB93C0061ED87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D879692E29AFB93C0061ED87 /* AppDelegate.swift */; };
 		D879693129AFB93C0061ED87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D879693029AFB93C0061ED87 /* SceneDelegate.swift */; };
 		D879693329AFB93C0061ED87 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D879693229AFB93C0061ED87 /* HomeController.swift */; };
@@ -45,6 +47,8 @@
 /* Begin PBXFileReference section */
 		D813020829D7111F002174D1 /* PhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
 		D8650B7629DDAF7E00CE6EB2 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
+		D8650B7829DF00A000CE6EB2 /* SendMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageButton.swift; sourceTree = "<group>"; };
+		D8650B7A29DF06D100CE6EB2 /* KeepSwipingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepSwipingButton.swift; sourceTree = "<group>"; };
 		D879692B29AFB93C0061ED87 /* SwipeMatchFS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwipeMatchFS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D879692E29AFB93C0061ED87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D879693029AFB93C0061ED87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 				D8C8098D29C4EE580097B52D /* SettingsCell.swift */,
 				D8C8098F29C9DB8C0097B52D /* AgeRangeCell.swift */,
 				D8650B7629DDAF7E00CE6EB2 /* MatchView.swift */,
+				D8650B7829DF00A000CE6EB2 /* SendMessageButton.swift */,
+				D8650B7A29DF06D100CE6EB2 /* KeepSwipingButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 				D813020929D7111F002174D1 /* PhotoController.swift in Sources */,
 				D8E8EC2329CC9B0A00A8F2ED /* FBExtension+Utils.swift in Sources */,
 				D879695429B6193E0061ED87 /* Advertiser.swift in Sources */,
+				D8650B7929DF00A000CE6EB2 /* SendMessageButton.swift in Sources */,
 				D879694B29B262E90061ED87 /* CardView.swift in Sources */,
 				D879693329AFB93C0061ED87 /* HomeController.swift in Sources */,
 				D879692F29AFB93C0061ED87 /* AppDelegate.swift in Sources */,
@@ -304,6 +311,7 @@
 				D8C57E5D29BCB89A00A7E328 /* RegistrationViewModel.swift in Sources */,
 				D879694429AFBDD10061ED87 /* Extensions+UIView.swift in Sources */,
 				D879693129AFB93C0061ED87 /* SceneDelegate.swift in Sources */,
+				D8650B7B29DF06D100CE6EB2 /* KeepSwipingButton.swift in Sources */,
 				D8C8098E29C4EE580097B52D /* SettingsCell.swift in Sources */,
 				D8E93B3329D1EBC3003D2FD0 /* SwipingPhotosController.swift in Sources */,
 				D879695229B518A60061ED87 /* CardViewModel.swift in Sources */,
