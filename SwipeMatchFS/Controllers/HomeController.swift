@@ -6,8 +6,7 @@
 //
 
 import UIKit
-import FirebaseFirestore
-import FirebaseAuth
+import Firebase
 import JGProgressHUD
 
 class HomeController: UIViewController, SettingsControllerDelegate, LoginControllerDelegate, CardViewDelegate {
@@ -21,13 +20,22 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        navigationController?.isNavigationBarHidden = true // ← back gesture not available
+        navigationController?.navigationBar.isHidden = true
+        
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+        topStackView.messageButton.addTarget(self, action: #selector(handleMessages), for: .touchUpInside)
         bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         bottomControls.likeButton.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
         bottomControls.dislikeButton.addTarget(self, action: #selector(handleDislike), for: .touchUpInside)
         
         setupLayout()
         fetchCurrentUser()
+    }
+    
+    @objc fileprivate func handleMessages() {
+        let vc = MatchesMessagesController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
