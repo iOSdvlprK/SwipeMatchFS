@@ -8,28 +8,55 @@
 import UIKit
 import LBTATools
 
-class MatchesMessagesController: UICollectionViewController {
+class MatchCell: LBTAListCell<UIColor> {
+    let profileImageView = UIImageView(image: #imageLiteral(resourceName: "kelly1"), contentMode: .scaleAspectFill)
+    let usernameLabel = UILabel(text: "Username Here", font: .systemFont(ofSize: 14, weight: .semibold), textColor: .systemGray, textAlignment: .center, numberOfLines: 2)
     
-    let customNavBar: UIView = {
-        let navBar = UIView(backgroundColor: .systemBackground)
+    override var item: UIColor! {
+        didSet {
+            backgroundColor = item
+        }
+    }
+    
+    override func setupViews() {
+        super.setupViews()
         
-        let iconImageView = UIImageView(image: UIImage(named: "top_messages_icon")?.withRenderingMode(.alwaysTemplate), contentMode: .scaleAspectFit)
-        iconImageView.tintColor = #colorLiteral(red: 0.9991757274, green: 0.418698281, blue: 0.4384849668, alpha: 1)
-        let messagesLabel = UILabel(text: "Messages", font: .boldSystemFont(ofSize: 20), textColor: #colorLiteral(red: 0.9991757274, green: 0.418698281, blue: 0.4384849668, alpha: 1), textAlignment: .center)
-        let feedLabel = UILabel(text: "Feed", font: .boldSystemFont(ofSize: 20), textColor: .systemGray, textAlignment: .center)
+        profileImageView.clipsToBounds = true
+        profileImageView.constrainWidth(80)
+        profileImageView.constrainHeight(80)
+        profileImageView.layer.cornerRadius = 80 / 2
         
-        navBar.setupShadow(opacity: 0.2, radius: 8, offset: CGSize(width: 0, height: 10), color: UIColor(white: 0, alpha: 0.3))
-        
-        navBar.stack(iconImageView.withHeight(44), navBar.hstack(messagesLabel, feedLabel, distribution: .fillEqually)).padTop(10)
-        
-        return navBar
-    }()
+        stack(stack(profileImageView, alignment: .center),
+              usernameLabel)
+    }
+}
+
+class MatchesMessagesController: LBTAListController<MatchCell, UIColor>, UICollectionViewDelegateFlowLayout {
+    
+    let customNavBar = MatchesNavBar()
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 120, height: 140)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        items = [
+            .red, .blue, .green, .purple, .orange
+        ]
+        
         collectionView.backgroundColor = .systemBackground
+        
+        customNavBar.backButton.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
         
         view.addSubview(customNavBar)
         customNavBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: CGSize(width: 0, height: 150))
+        
+        collectionView.contentInset.top = 150
+    }
+    
+    @objc fileprivate func handleBack() {
+        navigationController?.popViewController(animated: true)
     }
 }

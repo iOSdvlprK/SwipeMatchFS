@@ -43,6 +43,7 @@
 		D8E8EC2829CDD3F400A8F2ED /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E8EC2629CDD3F400A8F2ED /* LoginViewModel.swift */; };
 		D8E8EC2B29CF3C1C00A8F2ED /* UserDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E8EC2A29CF3C1C00A8F2ED /* UserDetailsController.swift */; };
 		D8E93B3329D1EBC3003D2FD0 /* SwipingPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E93B3229D1EBC3003D2FD0 /* SwipingPhotosController.swift */; };
+		D8FBF0E829E30F090087A758 /* MatchesNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FBF0E729E30F090087A758 /* MatchesNavBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		D8E8EC2629CDD3F400A8F2ED /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		D8E8EC2A29CF3C1C00A8F2ED /* UserDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsController.swift; sourceTree = "<group>"; };
 		D8E93B3229D1EBC3003D2FD0 /* SwipingPhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingPhotosController.swift; sourceTree = "<group>"; };
+		D8FBF0E729E30F090087A758 /* MatchesNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesNavBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				D8650B7629DDAF7E00CE6EB2 /* MatchView.swift */,
 				D8650B7829DF00A000CE6EB2 /* SendMessageButton.swift */,
 				D8650B7A29DF06D100CE6EB2 /* KeepSwipingButton.swift */,
+				D8FBF0E729E30F090087A758 /* MatchesNavBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				D879694E29B4C85E0061ED87 /* User.swift in Sources */,
 				D8C8098C29C49E0F0097B52D /* SettingsController.swift in Sources */,
 				D879695629BA5E950061ED87 /* RegistrationController.swift in Sources */,
+				D8FBF0E829E30F090087A758 /* MatchesNavBar.swift in Sources */,
 				D879694929B21B3F0061ED87 /* TopNavigationStackView.swift in Sources */,
 				D8B1566729BDC7BD00D2CE1C /* Bindable.swift in Sources */,
 				D879695829BA69FD0061ED87 /* CustomTextField.swift in Sources */,
