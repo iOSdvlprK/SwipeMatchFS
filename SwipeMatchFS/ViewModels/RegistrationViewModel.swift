@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import FirebaseAuth
+import Firebase
 import FirebaseStorage
-import FirebaseFirestore
 
 class RegistrationViewModel {
     var bindableImage = Bindable<UIImage>()

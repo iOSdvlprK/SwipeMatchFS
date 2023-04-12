@@ -43,9 +43,12 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
         print("HomeController did appear")
         // kick the user out when they log out
         if Auth.auth().currentUser == nil {
-            let loginController = LoginController()
-            loginController.delegate = self
-            let navController = UINavigationController(rootViewController: loginController)
+//            let loginController = LoginController()
+//            loginController.delegate = self
+//            let navController = UINavigationController(rootViewController: loginController)
+            let registrationController = RegistrationController()
+            registrationController.delegate = self
+            let navController = UINavigationController(rootViewController: registrationController)
             navController.modalPresentationStyle = .fullScreen
             present(navController, animated: true)
         }
@@ -99,16 +102,12 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     var lastFetchedUser: User?
     
     fileprivate func fetchUsersFromFirestore() {
-//        guard let minAge = user?.minSeekingAge, let maxAge = user?.maxSeekingAge else {
-//            self.hud.dismiss()
-//            return
-//        }
         let minAge = user?.minSeekingAge ?? SettingsController.defaultMinSeekingAge
         let maxAge = user?.maxSeekingAge ?? SettingsController.defaultMaxSeekingAge
         
         // will introduce pagination here to page through 2 users at a time
 //        let query = Firestore.firestore().collection("users").order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2)
-        let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
+        let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge).limit(to: 10)
         topCardView = nil
         query.getDocuments { snapshot, err in
             self.hud.dismiss()
@@ -125,6 +124,9 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
             snapshot?.documents.forEach({ documentSnapshot in
                 let userDictionary = documentSnapshot.data()
                 let user = User(dictionary: userDictionary)
+                
+                self.users[user.uid ?? ""] = user
+                
                 let isNotCurrentUser = user.uid != Auth.auth().currentUser?.uid
 //                let hasNotSwipedBefore = self.swipes[user.uid!] == nil
                 let hasNotSwipedBefore = true
@@ -141,6 +143,8 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
             })
         }
     }
+    
+    var users = [String: User]()
     
     var topCardView: CardView?
     
@@ -207,6 +211,24 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
             if hasMatched {
                 print("Has matched")
                 self.presentMatchView(cardUID: cardUID)
+                
+                guard let cardUser = self.users[cardUID] else { return }
+                let data = ["name": cardUser.name ?? "", "profileImageUrl": cardUser.imageUrl1 ?? "", "uid": cardUID, "timestamp": Timestamp(date: Date())]
+                
+                Firestore.firestore().collection("matches_messages").document(uid).collection("matches").document(cardUID).setData(data) { err in
+                    if let err = err {
+                        print("Failed to save match info:", err)
+                    }
+                }
+                
+                guard let currentUser = self.user else { return }
+                let otherMatchData = ["name": currentUser.name ?? "", "profileImageUrl": currentUser.imageUrl1 ?? "", "uid": cardUID, "timestamp": Timestamp(date: Date())]
+                
+                Firestore.firestore().collection("matches_messages").document(cardUID).collection("matches").document(uid).setData(otherMatchData) { err in
+                    if let err = err {
+                        print("Failed to save match info:", err)
+                    }
+                }
             }
         }
     }

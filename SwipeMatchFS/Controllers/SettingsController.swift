@@ -6,11 +6,10 @@
 //
 
 import UIKit
-import FirebaseAuth
-import FirebaseFirestore
-import FirebaseStorage
+import Firebase
 import JGProgressHUD
 import SDWebImage
+import FirebaseStorage
 
 protocol SettingsControllerDelegate {
     func didSaveSettings()
