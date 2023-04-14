@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D809EF2229E7F51100840705 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809EF2129E7F51100840705 /* ChatLogController.swift */; };
+		D809EF2529E9927700840705 /* MessagesNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809EF2429E9927700840705 /* MessagesNavBar.swift */; };
 		D813020929D7111F002174D1 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D813020829D7111F002174D1 /* PhotoController.swift */; };
 		D8650B7729DDAF7E00CE6EB2 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8650B7629DDAF7E00CE6EB2 /* MatchView.swift */; };
 		D8650B7929DF00A000CE6EB2 /* SendMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8650B7829DF00A000CE6EB2 /* SendMessageButton.swift */; };
@@ -47,6 +49,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D809EF2129E7F51100840705 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
+		D809EF2429E9927700840705 /* MessagesNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesNavBar.swift; sourceTree = "<group>"; };
 		D813020829D7111F002174D1 /* PhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
 		D8650B7629DDAF7E00CE6EB2 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		D8650B7829DF00A000CE6EB2 /* SendMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageButton.swift; sourceTree = "<group>"; };
@@ -99,6 +103,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D809EF2329E9923800840705 /* MatchesMessages */ = {
+			isa = PBXGroup;
+			children = (
+				D809EF2429E9927700840705 /* MessagesNavBar.swift */,
+			);
+			path = MatchesMessages;
+			sourceTree = "<group>";
+		};
 		D879692229AFB93C0061ED87 = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +157,7 @@
 		D879694529B1FEF60061ED87 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D809EF2329E9923800840705 /* MatchesMessages */,
 				D879694629B1FF240061ED87 /* HomeBottomControlsStackView.swift */,
 				D879694829B21B3F0061ED87 /* TopNavigationStackView.swift */,
 				D879694A29B262E90061ED87 /* CardView.swift */,
@@ -195,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				D88DB61329E1AB3B00141CFA /* MatchesMessagesController.swift */,
+				D809EF2129E7F51100840705 /* ChatLogController.swift */,
 			);
 			path = MatchesMessages;
 			sourceTree = "<group>";
@@ -328,8 +342,10 @@
 				D879693129AFB93C0061ED87 /* SceneDelegate.swift in Sources */,
 				D8650B7B29DF06D100CE6EB2 /* KeepSwipingButton.swift in Sources */,
 				D8C8098E29C4EE580097B52D /* SettingsCell.swift in Sources */,
+				D809EF2229E7F51100840705 /* ChatLogController.swift in Sources */,
 				D8E93B3329D1EBC3003D2FD0 /* SwipingPhotosController.swift in Sources */,
 				D879695229B518A60061ED87 /* CardViewModel.swift in Sources */,
+				D809EF2529E9927700840705 /* MessagesNavBar.swift in Sources */,
 				D88DB61429E1AB3B00141CFA /* MatchesMessagesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
