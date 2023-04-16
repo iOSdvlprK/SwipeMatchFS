@@ -8,67 +8,6 @@
 import UIKit
 import LBTATools
 
-struct Message {
-    let text: String
-    let isFromCurrentLoggedUser: Bool
-}
-
-class MessageCell: LBTAListCell<Message> {
-    
-    let textView: UITextView = {
-        let tv = UITextView()
-        tv.backgroundColor = .clear
-        tv.font = .systemFont(ofSize: 20)
-        tv.isScrollEnabled = false
-        tv.isEditable = false
-        return tv
-    }()
-    
-    let bubbleContainer = UIView(backgroundColor: #colorLiteral(red: 0.8980391622, green: 0.8980391622, blue: 0.8980391622, alpha: 1))
-    
-    override var item: Message! {
-        didSet {
-            textView.text = item.text
-            
-            if item.isFromCurrentLoggedUser {
-                // right edge
-                anchoredConstraints.trailing?.isActive = true
-                anchoredConstraints.leading?.isActive = false
-                bubbleContainer.backgroundColor = #colorLiteral(red: 0.08617123216, green: 0.7602496147, blue: 1, alpha: 1)
-                textView.textColor = .white
-            } else {
-                anchoredConstraints.trailing?.isActive = false
-                anchoredConstraints.leading?.isActive = true
-                bubbleContainer.backgroundColor = #colorLiteral(red: 0.8980391622, green: 0.8980391622, blue: 0.8980391622, alpha: 1)
-                textView.textColor = .black
-            }
-        }
-    }
-    
-    var anchoredConstraints: AnchoredConstraints!
-    
-    override func setupViews() {
-        super.setupViews()
-        
-        addSubview(bubbleContainer)
-        bubbleContainer.layer.cornerRadius = 12
-        
-        anchoredConstraints = bubbleContainer.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
-        anchoredConstraints.leading?.constant = 20
-        anchoredConstraints.trailing?.isActive = false
-        anchoredConstraints.trailing?.constant = -20
-        
-        // example
-//        anchoredConstraints.leading?.isActive = false
-//        anchoredConstraints.trailing?.isActive = true
-        
-        bubbleContainer.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
-        
-        bubbleContainer.addSubview(textView)
-        textView.fillSuperview(padding: UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12))
-    }
-}
-
 class ChatLogController: LBTAListController<MessageCell, Message>, UICollectionViewDelegateFlowLayout {
     
     fileprivate lazy var customNavBar = MessagesNavBar(match: match)
@@ -82,10 +21,72 @@ class ChatLogController: LBTAListController<MessageCell, Message>, UICollectionV
         super.init()
     }
     
+    // input accessory view
+    
+    class CustomInputAccessoryView: UIView {
+        
+        let textView = UITextView()
+        let sendButton = UIButton(title: "SEND", titleColor: .label, font: .boldSystemFont(ofSize: 14), backgroundColor: .systemBackground, target: nil, action: nil)
+        
+        let placeholderLabel = UILabel(text: "Enter Message", font: .systemFont(ofSize: 16), textColor: .systemGray)
+        
+        override var intrinsicContentSize: CGSize {
+            return .zero
+        }
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            backgroundColor = .systemBackground
+            setupShadow(opacity: 0.1, radius: 8, offset: CGSize(width: 0, height: -8), color: .systemGray)
+            autoresizingMask = .flexibleHeight
+            
+            textView.isScrollEnabled = false
+            textView.font = .systemFont(ofSize: 16)
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(handleTextChange), name: UITextView.textDidChangeNotification, object: nil)
+            
+            hstack(
+                textView,
+                sendButton.withSize(CGSize(width: 60, height: 60)),
+                alignment: .center
+            ).withMargins(UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+            
+            addSubview(placeholderLabel)
+            placeholderLabel.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: sendButton.leadingAnchor, padding: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0))
+            placeholderLabel.centerYAnchor.constraint(equalTo: sendButton.centerYAnchor).isActive = true
+        }
+        
+        @objc fileprivate func handleTextChange() {
+            placeholderLabel.isHidden = textView.text.count != 0
+        }
+        
+        deinit {
+            NotificationCenter.default.removeObserver(self)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    lazy var redView: UIView = {
+        return CustomInputAccessoryView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
+    }()
+    
+    override var inputAccessoryView: UIView? {
+        get {
+            return redView
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.alwaysBounceVertical = true
+        collectionView.keyboardDismissMode = .interactive
         
         items = [
             .init(text: "Excellence is an art won by training and habituation. We do not act rightly because we have virtue or excellence, but we rather have those because we have acted rightly. We are what we repeatedly do. Excellence, then, is not an act but a habit.", isFromCurrentLoggedUser: true),
@@ -98,14 +99,18 @@ class ChatLogController: LBTAListController<MessageCell, Message>, UICollectionV
             .init(text: "You are too concerned with what was and what will be. There is a saying: Yesterday is history, tomorrow is a mystery, but today is a gift. That is why it is called the present.", isFromCurrentLoggedUser: false)
         ]
         
+        setupUI()
+    }
+    
+    fileprivate func setupUI() {
+        collectionView.alwaysBounceVertical = true
+        
         view.addSubview(customNavBar)
         customNavBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: CGSize(width: 0, height: navBarHeight))
         
         collectionView.contentInset.top = navBarHeight
 //        collectionView.scrollIndicatorInsets.top = navBarHeight
-        collectionView.verticalScrollIndicatorInsets = {
-            return UIEdgeInsets(top: navBarHeight, left: 0, bottom: 0, right: 0)
-        }()
+        collectionView.verticalScrollIndicatorInsets = UIEdgeInsets(top: navBarHeight, left: 0, bottom: 0, right: 0)
         
         customNavBar.backButton.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
         

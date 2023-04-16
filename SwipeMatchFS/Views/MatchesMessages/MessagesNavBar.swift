@@ -12,7 +12,7 @@ class MessagesNavBar: UIView {
     
 //    let userProfileImageView = UIImageView(image: #imageLiteral(resourceName: "jane1.jpg"), contentMode: .scaleAspectFill)
     let userProfileImageView = CircularImageView(width: 44, image: #imageLiteral(resourceName: "jane1.jpg"))
-    let nameLabel = UILabel(text: "USERNAME", font: .systemFont(ofSize: 16))
+    let nameLabel = UILabel(text: "USERNAME", font: .systemFont(ofSize: 16), textColor: .label)
     
     let backButton = UIButton(image: #imageLiteral(resourceName: "back"), tintColor: #colorLiteral(red: 0.9991757274, green: 0.418698281, blue: 0.4384849668, alpha: 1))
     let flagButton = UIButton(image: #imageLiteral(resourceName: "flag"), tintColor: #colorLiteral(red: 0.9991757274, green: 0.418698281, blue: 0.4384849668, alpha: 1))
