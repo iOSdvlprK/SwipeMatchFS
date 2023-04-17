@@ -11,6 +11,7 @@
 		D809EF2529E9927700840705 /* MessagesNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809EF2429E9927700840705 /* MessagesNavBar.swift */; };
 		D809EF2729EC231F00840705 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809EF2629EC231F00840705 /* MessageCell.swift */; };
 		D809EF2929EC23CE00840705 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809EF2829EC23CE00840705 /* Message.swift */; };
+		D809EF2B29ED7B9D00840705 /* CustomInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D809EF2A29ED7B9D00840705 /* CustomInputAccessoryView.swift */; };
 		D813020929D7111F002174D1 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D813020829D7111F002174D1 /* PhotoController.swift */; };
 		D8650B7729DDAF7E00CE6EB2 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8650B7629DDAF7E00CE6EB2 /* MatchView.swift */; };
 		D8650B7929DF00A000CE6EB2 /* SendMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8650B7829DF00A000CE6EB2 /* SendMessageButton.swift */; };
@@ -55,6 +56,7 @@
 		D809EF2429E9927700840705 /* MessagesNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesNavBar.swift; sourceTree = "<group>"; };
 		D809EF2629EC231F00840705 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		D809EF2829EC23CE00840705 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		D809EF2A29ED7B9D00840705 /* CustomInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputAccessoryView.swift; sourceTree = "<group>"; };
 		D813020829D7111F002174D1 /* PhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
 		D8650B7629DDAF7E00CE6EB2 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		D8650B7829DF00A000CE6EB2 /* SendMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageButton.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			children = (
 				D809EF2429E9927700840705 /* MessagesNavBar.swift */,
 				D809EF2629EC231F00840705 /* MessageCell.swift */,
+				D809EF2A29ED7B9D00840705 /* CustomInputAccessoryView.swift */,
 			);
 			path = MatchesMessages;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				D879694729B1FF240061ED87 /* HomeBottomControlsStackView.swift in Sources */,
 				D8E8EC2B29CF3C1C00A8F2ED /* UserDetailsController.swift in Sources */,
 				D8C8099029C9DB8C0097B52D /* AgeRangeCell.swift in Sources */,
+				D809EF2B29ED7B9D00840705 /* CustomInputAccessoryView.swift in Sources */,
 				D809EF2729EC231F00840705 /* MessageCell.swift in Sources */,
 				D8650B7729DDAF7E00CE6EB2 /* MatchView.swift in Sources */,
 				D8E8EC2829CDD3F400A8F2ED /* LoginViewModel.swift in Sources */,

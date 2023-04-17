@@ -222,7 +222,7 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
                 }
                 
                 guard let currentUser = self.user else { return }
-                let otherMatchData = ["name": currentUser.name ?? "", "profileImageUrl": currentUser.imageUrl1 ?? "", "uid": cardUID, "timestamp": Timestamp(date: Date())]
+                let otherMatchData = ["name": currentUser.name ?? "", "profileImageUrl": currentUser.imageUrl1 ?? "", "uid": currentUser.uid ?? "", "timestamp": Timestamp(date: Date())]
                 
                 Firestore.firestore().collection("matches_messages").document(cardUID).collection("matches").document(uid).setData(otherMatchData) { err in
                     if let err = err {

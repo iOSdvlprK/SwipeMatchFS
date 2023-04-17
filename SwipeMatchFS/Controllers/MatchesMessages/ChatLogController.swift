@@ -7,6 +7,7 @@
 
 import UIKit
 import LBTATools
+import Firebase
 
 class ChatLogController: LBTAListController<MessageCell, Message>, UICollectionViewDelegateFlowLayout {
     
@@ -21,85 +22,110 @@ class ChatLogController: LBTAListController<MessageCell, Message>, UICollectionV
         super.init()
     }
     
-    // input accessory view
-    
-    class CustomInputAccessoryView: UIView {
-        
-        let textView = UITextView()
-        let sendButton = UIButton(title: "SEND", titleColor: .label, font: .boldSystemFont(ofSize: 14), backgroundColor: .systemBackground, target: nil, action: nil)
-        
-        let placeholderLabel = UILabel(text: "Enter Message", font: .systemFont(ofSize: 16), textColor: .systemGray)
-        
-        override var intrinsicContentSize: CGSize {
-            return .zero
-        }
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            backgroundColor = .systemBackground
-            setupShadow(opacity: 0.1, radius: 8, offset: CGSize(width: 0, height: -8), color: .systemGray)
-            autoresizingMask = .flexibleHeight
-            
-            textView.isScrollEnabled = false
-            textView.font = .systemFont(ofSize: 16)
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(handleTextChange), name: UITextView.textDidChangeNotification, object: nil)
-            
-            hstack(
-                textView,
-                sendButton.withSize(CGSize(width: 60, height: 60)),
-                alignment: .center
-            ).withMargins(UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
-            
-            addSubview(placeholderLabel)
-            placeholderLabel.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: sendButton.leadingAnchor, padding: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0))
-            placeholderLabel.centerYAnchor.constraint(equalTo: sendButton.centerYAnchor).isActive = true
-        }
-        
-        @objc fileprivate func handleTextChange() {
-            placeholderLabel.isHidden = textView.text.count != 0
-        }
-        
-        deinit {
-            NotificationCenter.default.removeObserver(self)
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-    }
-    
     override var canBecomeFirstResponder: Bool {
         return true
     }
     
-    lazy var redView: UIView = {
-        return CustomInputAccessoryView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
+    lazy var customInputView: CustomInputAccessoryView = {
+        let civ = CustomInputAccessoryView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
+        civ.sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        return civ
     }()
+    
+    @objc fileprivate func handleSend() {
+        print(customInputView.textView.text ?? "")
+        
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        
+        let collection =  Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.uid)
+        
+        let data: [String: Any] = ["text": customInputView.textView.text ?? "", "fromId": currentUserId, "toId": match.uid, "timestamp": Timestamp(date: Date())]
+        
+        collection.addDocument(data: data) { err in
+            if let err = err {
+                print("Failed to save message:", err)
+                return
+            }
+            
+            print("Successfully saved msg into Firestore")
+            self.customInputView.textView.text = nil
+            self.customInputView.placeholderLabel.isHidden = false
+        }
+        
+        // will also save data to the other side
+        let toCollection =  Firestore.firestore().collection("matches_messages").document(match.uid).collection(currentUserId)    // reverse
+        
+        toCollection.addDocument(data: data) { err in
+            if let err = err {
+                print("Failed to save message:", err)
+                return
+            }
+            
+            print("Successfully saved msg into Firestore")
+            self.customInputView.textView.text = nil
+            self.customInputView.placeholderLabel.isHidden = false
+        }
+    }
     
     override var inputAccessoryView: UIView? {
         get {
-            return redView
+            return customInputView
+        }
+    }
+    
+    fileprivate func fetchMessages() {
+        print("Fetching messages")
+        
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        
+        let query = Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.uid).order(by: "timestamp")
+        
+//        query.getDocuments { querySnapshot, err in
+//            if let err = err {
+//                print("Failed to fetch messages:", err)
+//                return
+//            }
+//
+//            querySnapshot?.documents.forEach({ documentSnapshot in
+//                print(documentSnapshot.data())
+//                self.items.append(Message(dictionary: documentSnapshot.data()))
+//            })
+//
+//            self.collectionView.reloadData()
+//        }
+        
+        query.addSnapshotListener { querySnapshot, err in
+            if let err = err {
+                print("Failed to fetch messages:", err)
+                return
+            }
+            
+            querySnapshot?.documentChanges.forEach({ change in
+                if change.type == .added {
+                    let dictionary = change.document.data()
+                    self.items.append(Message(dictionary: dictionary))
+                }
+                
+                self.collectionView.reloadData()
+                self.collectionView.scrollToItem(at: [0, self.items.count - 1], at: .bottom, animated: true)
+            })
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        
         collectionView.keyboardDismissMode = .interactive
         
-        items = [
-            .init(text: "Excellence is an art won by training and habituation. We do not act rightly because we have virtue or excellence, but we rather have those because we have acted rightly. We are what we repeatedly do. Excellence, then, is not an act but a habit.", isFromCurrentLoggedUser: true),
-            .init(text: "Hello bud", isFromCurrentLoggedUser: false),
-            .init(text: "Hello from LBTAListController", isFromCurrentLoggedUser: true),
-            .init(text: "Follow excellence.\nAnd success will follow you!", isFromCurrentLoggedUser: false),
-            .init(text: "Gratitude and attitude are not challenges, they are choices.", isFromCurrentLoggedUser: true),
-            .init(text: "Once or twice in life, someone will give you a shot you don't quite deserve. Work 100 hours. Do whatever it takes. Make it happen.", isFromCurrentLoggedUser: false),
-            .init(text: "Your mind is like this water, my friend. When it is agitated, it becomes difficult to see. But if you allow it to settle, the answer becomes clear.", isFromCurrentLoggedUser: true),
-            .init(text: "You are too concerned with what was and what will be. There is a saying: Yesterday is history, tomorrow is a mystery, but today is a gift. That is why it is called the present.", isFromCurrentLoggedUser: false)
-        ]
+        fetchMessages()
         
         setupUI()
+    }
+    
+    @objc fileprivate func handleKeyboardShow() {
+        self.collectionView.scrollToItem(at: [0, items.count - 1], at: .bottom, animated: true)
     }
     
     fileprivate func setupUI() {
