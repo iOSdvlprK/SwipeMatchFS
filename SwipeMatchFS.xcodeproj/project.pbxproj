@@ -45,6 +45,8 @@
 		D8C8098C29C49E0F0097B52D /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098B29C49E0F0097B52D /* SettingsController.swift */; };
 		D8C8098E29C4EE580097B52D /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098D29C4EE580097B52D /* SettingsCell.swift */; };
 		D8C8099029C9DB8C0097B52D /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8098F29C9DB8C0097B52D /* AgeRangeCell.swift */; };
+		D8E2F52629F024B6002C33D6 /* MatchesHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E2F52529F024B5002C33D6 /* MatchesHeader.swift */; };
+		D8E2F52829F0252C002C33D6 /* MatchesHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E2F52729F0252C002C33D6 /* MatchesHorizontalController.swift */; };
 		D8E8EC2329CC9B0A00A8F2ED /* FBExtension+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E8EC2229CC9B0A00A8F2ED /* FBExtension+Utils.swift */; };
 		D8E8EC2729CDD3F400A8F2ED /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E8EC2529CDD3F400A8F2ED /* LoginController.swift */; };
 		D8E8EC2829CDD3F400A8F2ED /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E8EC2629CDD3F400A8F2ED /* LoginViewModel.swift */; };
@@ -88,6 +90,8 @@
 		D8C8098B29C49E0F0097B52D /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		D8C8098D29C4EE580097B52D /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		D8C8098F29C9DB8C0097B52D /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
+		D8E2F52529F024B5002C33D6 /* MatchesHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesHeader.swift; sourceTree = "<group>"; };
+		D8E2F52729F0252C002C33D6 /* MatchesHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesHorizontalController.swift; sourceTree = "<group>"; };
 		D8E8EC2229CC9B0A00A8F2ED /* FBExtension+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FBExtension+Utils.swift"; sourceTree = "<group>"; };
 		D8E8EC2529CDD3F400A8F2ED /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		D8E8EC2629CDD3F400A8F2ED /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 				D809EF2629EC231F00840705 /* MessageCell.swift */,
 				D809EF2A29ED7B9D00840705 /* CustomInputAccessoryView.swift */,
 				D809EF2E29EEC95D00840705 /* MatchCell.swift */,
+				D8E2F52529F024B5002C33D6 /* MatchesHeader.swift */,
 			);
 			path = MatchesMessages;
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 			children = (
 				D88DB61329E1AB3B00141CFA /* MatchesMessagesController.swift */,
 				D809EF2129E7F51100840705 /* ChatLogController.swift */,
+				D8E2F52729F0252C002C33D6 /* MatchesHorizontalController.swift */,
 			);
 			path = MatchesMessages;
 			sourceTree = "<group>";
@@ -346,6 +352,7 @@
 				D8E8EC2B29CF3C1C00A8F2ED /* UserDetailsController.swift in Sources */,
 				D8C8099029C9DB8C0097B52D /* AgeRangeCell.swift in Sources */,
 				D809EF2B29ED7B9D00840705 /* CustomInputAccessoryView.swift in Sources */,
+				D8E2F52829F0252C002C33D6 /* MatchesHorizontalController.swift in Sources */,
 				D809EF2F29EEC95D00840705 /* MatchCell.swift in Sources */,
 				D809EF2729EC231F00840705 /* MessageCell.swift in Sources */,
 				D8650B7729DDAF7E00CE6EB2 /* MatchView.swift in Sources */,
@@ -360,6 +367,7 @@
 				D879695829BA69FD0061ED87 /* CustomTextField.swift in Sources */,
 				D8C57E5D29BCB89A00A7E328 /* RegistrationViewModel.swift in Sources */,
 				D879693129AFB93C0061ED87 /* SceneDelegate.swift in Sources */,
+				D8E2F52629F024B6002C33D6 /* MatchesHeader.swift in Sources */,
 				D8650B7B29DF06D100CE6EB2 /* KeepSwipingButton.swift in Sources */,
 				D8C8098E29C4EE580097B52D /* SettingsCell.swift in Sources */,
 				D809EF2229E7F51100840705 /* ChatLogController.swift in Sources */,
