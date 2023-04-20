@@ -9,15 +9,17 @@ import UIKit
 import LBTATools
 import Firebase
 
-class RecentMessageCell: LBTAListCell<UIColor> {
+class RecentMessageCell: LBTAListCell<RecentMessage> {
     
     let userProfileImageView = UIImageView(image: #imageLiteral(resourceName: "jane1.jpg"), contentMode: .scaleAspectFill)
     let usernameLabel = UILabel(text: "USERNAME HERE", font: .boldSystemFont(ofSize: 18))
     let messageTextLabel = UILabel(text: "Some long line of text that should span 2 lines.", font: .systemFont(ofSize: 16), textColor: .systemGray, numberOfLines: 2)
     
-    override var item: UIColor! {
+    override var item: RecentMessage! {
         didSet {
-//            backgroundColor = item
+            usernameLabel.text = item.name
+            messageTextLabel.text = item.text
+            userProfileImageView.sd_setImage(with: URL(string: item.profileImageUrl))
         }
     }
     
@@ -41,7 +43,48 @@ class RecentMessageCell: LBTAListCell<UIColor> {
     }
 }
 
-class MatchesMessagesController: LBTAListHeaderController<RecentMessageCell, UIColor, MatchesHeader>, UICollectionViewDelegateFlowLayout {
+struct RecentMessage {
+    let text, uid, name, profileImageUrl: String
+    let timestamp: Timestamp
+    
+    init(dictionary: [String: Any]) {
+        self.text = dictionary["text"] as? String ?? ""
+        self.uid = dictionary["uid"] as? String ?? ""
+        self.name = dictionary["name"] as? String ?? ""
+        self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
+        
+        self.timestamp = dictionary["timestamp"] as? Timestamp ?? Timestamp(date: Date())
+    }
+}
+
+class MatchesMessagesController: LBTAListHeaderController<RecentMessageCell, RecentMessage, MatchesHeader>, UICollectionViewDelegateFlowLayout {
+    
+    var recentMessagesDictionary = [String: RecentMessage]()
+    
+    fileprivate func fetchRecentMessages() {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").addSnapshotListener { querySnapshot, err in
+            // check err
+            
+            querySnapshot?.documentChanges.forEach({ change in
+                if change.type == .added || change.type == .modified {
+                    let dictionary = change.document.data()
+                    let recentMessage = RecentMessage(dictionary: dictionary)
+                    self.recentMessagesDictionary[recentMessage.uid] = recentMessage
+                }
+            })
+            
+            self.resetItems()
+        }
+    }
+    
+    fileprivate func resetItems() {
+        let values = Array(recentMessagesDictionary.values)
+        items = values.sorted(by: { rm1, rm2 in
+            return rm1.timestamp.compare(rm2.timestamp) == .orderedDescending
+        })
+        collectionView.reloadData()
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
@@ -66,7 +109,12 @@ class MatchesMessagesController: LBTAListHeaderController<RecentMessageCell, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        items = [.systemRed, .systemBlue, .systemGreen, .systemPurple]
+        fetchRecentMessages()
+        
+        items = [
+//            RecentMessage(text: "Some random message that I'll use for each recent message cell", uid: "BLANK", name: "Little Bear", profileImageUrl: "https://cdn.statusqueen.com/dpimages/thumbnail/cute_dp_image-3155.jpg", timestamp: Timestamp(date: Date())),
+//            RecentMessage(text: "Another random message...", uid: "BLANK", name: "Twin Little Bear", profileImageUrl: "https://ae01.alicdn.com/kf/He4c7876707c84a4a879c3df3f8b8d8e0B.jpg", timestamp: Timestamp(date: Date()))
+        ]
         
         setupUI()
     }
