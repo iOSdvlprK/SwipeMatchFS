@@ -35,6 +35,31 @@ class ChatLogController: LBTAListController<MessageCell, Message>, UICollectionV
     @objc fileprivate func handleSend() {
         print(customInputView.textView.text ?? "")
         
+        saveToFromMessages()
+        saveToFromRecentMessages()
+    }
+    
+    fileprivate func saveToFromRecentMessages() {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        let data: [String: Any] = ["text": customInputView.textView.text ?? "", "name": match.name, "profileImageUrl": match.profileImageUrl, "timestamp": Timestamp(date: Date()), "uid": match.uid]
+        
+        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").document(match.uid).setData(data) { err in
+            // check your err if any
+            if let err = err {
+                print("Failed to save recent message:", err)
+                return
+            }
+            print("Saved recent message")
+        }
+        
+        // save the other direction
+        guard let currentUser = self.currentUser else { return }
+        let toData: [String: Any] = ["text": customInputView.textView.text ?? "", "name": currentUser.name ?? "", "profileImageUrl": currentUser.imageUrl1 ?? "", "timestamp": Timestamp(date: Date()), "uid": currentUserId]
+        
+        Firestore.firestore().collection("matches_messages").document(match.uid).collection("recent_messages").document(currentUserId).setData(toData)
+    }
+    
+    fileprivate func saveToFromMessages() {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         
         let collection =  Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.uid)
@@ -112,8 +137,19 @@ class ChatLogController: LBTAListController<MessageCell, Message>, UICollectionV
         }
     }
     
+    var currentUser: User?
+    
+    fileprivate func fetchCurrentUser() {
+        Firestore.firestore().collection("users").document(Auth.auth().currentUser?.uid ?? "").getDocument { snapshot, err in
+            let data = snapshot?.data() ?? [:]
+            self.currentUser = User(dictionary: data)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchCurrentUser()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardDidShowNotification, object: nil)
         

@@ -12,7 +12,7 @@ import Firebase
 class RecentMessageCell: LBTAListCell<RecentMessage> {
     
     let userProfileImageView = UIImageView(image: #imageLiteral(resourceName: "jane1.jpg"), contentMode: .scaleAspectFill)
-    let usernameLabel = UILabel(text: "USERNAME HERE", font: .boldSystemFont(ofSize: 18))
+    let usernameLabel = UILabel(text: "USERNAME HERE", font: .boldSystemFont(ofSize: 18), textColor: .label)
     let messageTextLabel = UILabel(text: "Some long line of text that should span 2 lines.", font: .systemFont(ofSize: 16), textColor: .systemGray, numberOfLines: 2)
     
     override var item: RecentMessage! {
@@ -76,6 +76,15 @@ class MatchesMessagesController: LBTAListHeaderController<RecentMessageCell, Rec
             
             self.resetItems()
         }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let recentMessage = self.items[indexPath.item]
+        let dictionary = ["name": recentMessage.name, "profileImageUrl": recentMessage.profileImageUrl, "uid": recentMessage.uid]
+        
+        let match = Match(dictionary: dictionary)
+        let controller = ChatLogController(match: match)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     fileprivate func resetItems() {
